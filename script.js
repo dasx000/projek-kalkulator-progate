@@ -29,13 +29,14 @@ numbers.forEach(n => {
 const inputOperator = (o) => {
     prevNumber = currentNumber
     calculationOperator = o
-    currentNumber = ''
+    currentNumber = '0'
 }
 
 const operators = document.querySelectorAll('.operator')
 operators.forEach(o => {
     o.addEventListener('click', (event) => {
-
+        // console.log(calculationOperator)
+        if (calculationOperator != "") return
         inputOperator(event.target.value)
         updateScreen(event.target.value)
     })
@@ -56,6 +57,7 @@ decimal.addEventListener('click', (event) => {
     updateScreen(currentNumber)
 })
 
+
 const calculate = () => {
     let result = ''
     switch (calculationOperator) {
@@ -75,7 +77,7 @@ const calculate = () => {
             break
     }
     currentNumber = result
-    calculationOperation = ''
+    calculationOperator = ''
 }
 
 const equalSign = document.querySelector('.equal-sign')
@@ -84,9 +86,14 @@ equalSign.addEventListener('click', (event) => {
     updateScreen(currentNumber)
 })
 
+const percentage = document.querySelector('.percentage')
+percentage.addEventListener('click', (event) => {
+    updateScreen(parseFloat(currentNumber) / 100)
+})
+
 const clearAll = () => {
     prevNumber = ''
-    calculationOperation = ''
+    calculationOperator = ''
     currentNumber = '0'
 }
 
